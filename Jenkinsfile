@@ -22,8 +22,8 @@ pipeline {
     }
     parameters{
     choice(name: 'NUMBER',
-          choices: [10,20,30,40,50,60,70,80,90]),
-        description: 'Select the value of F(n) for the Fibonacci sequence'
+          choices: [10,20,30,40,50,60,70,80,90],
+        description: 'Select the value of F(n) for the Fibonacci sequence')
     }
 
     // the pipeline section we all know and love: stages! :D
