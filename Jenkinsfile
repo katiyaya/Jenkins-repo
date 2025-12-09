@@ -20,27 +20,35 @@ pipeline {
           // where Jenkins is running, not the user's time zone
           cron '@midnight'
     }
+    parameters{
+    choice(name: 'NUMBER',
+          choices: [10,20,30,40,50,60,70,80,90]),
+        description: 'Select the value of F(n) for the Fibonacci sequence'
+    }
 
     // the pipeline section we all know and love: stages! :D
     stages {
-        stage('Requirements') {
-            steps {
-                echo 'Installing requirements...'
+        stage('Make executable'){
+            steps{
+                sh('chmod +x ./scripts/fibonacci.sh')
             }
         }
-        stage('Build') {
-            steps {
-                echo 'Building..'
+        stage('Relative path'){
+            steps{
+                sh("./scripts/fibonacci.sh ${env.NUMBER}")
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
+        stage('Full path'){
+            steps{
+                sh("${env.WORKSPACE}/scripts/fibonacci ${env.NUMBER}")
             }
         }
-        stage('Report') {
-            steps {
-                echo 'Reporting....'
+        stage('Change directory'){
+            steps{
+                dir("${env.WORKSPACE}/scripts")
+                {
+                    sh("./fibonacci.sh ${env.NUMBER}")
+                }
             }
         }
     }
