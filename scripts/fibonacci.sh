@@ -1,4 +1,5 @@
 #!/bin/bash
+echo 'This is Fibonacci number series'
 N=${1:-10}
 
 a=0
